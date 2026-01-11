@@ -14,8 +14,9 @@ jobs:
     - name: 📂 Checkout Repository
       uses: actions/checkout@v3
       with:
-       token: ${{ secrets.GIT_TOKEN }}
-    
+       # token: ${{ secrets.GIT_TOKEN }}
+       token: ${{ secrets.GITHUB_TOKEN }}
+       
     - name: 🐍 Set Up Python
       uses: actions/setup-python@v4
       with:
