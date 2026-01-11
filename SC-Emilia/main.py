@@ -7,6 +7,9 @@ import ssl
 import json
 import concurrent.futures
 import re
+# >>> ADD
+import requests
+# <<< ADD
 
 # >>> ADD: dynv6 support imports
 import urllib.request
@@ -84,10 +87,14 @@ def update_dynv6(ip):
         if r.status_code == 200:
             print(f"✅ dynv6 更新成功 → {ip}")
             print(f"返回内容: {r.text.strip()}")
+            return True              # <<< ADD
         else:
             print(f"❌ dynv6 更新失败，状态码: {r.status_code}")
+            return False             # <<< ADD
     except Exception as e:
         print(f"❌ dynv6 请求异常: {e}")
+        return False                 # <<< ADD
+# <<< ADD
 # <<< ADD
 
 def process_proxy(proxy_line):
