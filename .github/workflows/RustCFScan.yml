@@ -16,7 +16,6 @@ jobs:
     - name: 📂 Checkout Repository
       uses: actions/checkout@v4
       with:
-        repository: ddwx3399/Emilia
         fetch-depth: 0
         token: ${{ secrets.GIT_TOKEN }}
 
