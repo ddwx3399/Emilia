@@ -114,6 +114,7 @@ def process_proxy(proxy_line):
             active_proxies.append(proxy_entry)
             # >>> ADD: first SG proxy -> dynv6
             if proxy_country == "SG" and not dynv6_updated.is_set():
+                print(f"====存在SG")
                 if update_dynv6(ip):
                     print(f"\033[94m✔ First SG proxy used for dynv6: {ip}\033[0m")
                     dynv6_updated.set()
