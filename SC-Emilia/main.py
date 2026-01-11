@@ -74,6 +74,7 @@ def clean_org_name(org_name): #Menghapus karakter yang tidak diinginkan dari nam
 
 # >>> ADD: dynv6 update function
 
+# >>> ADD: dynv6 update function (STRICT CHECK)
 def update_dynv6(ip):
     url = (
         f"http://dynv6.com/api/update"
@@ -84,12 +85,23 @@ def update_dynv6(ip):
     try:
         with urllib.request.urlopen(url, timeout=10) as r:
             body = r.read().decode().strip()
-            print(f"✅ dynv6 更新成功 → {ip}")
-            print(f"返回内容: {body}")
-            return True
+            print(f"dynv6 raw response: [{body}]")  # <<< ADD
+
+            if body == "good":
+                print(f"✅ dynv6 更新成功 → {ip}")
+                return True
+
+            if body == "nochg":
+                print(f"⚠ dynv6 IP 未变化（nochg）→ {ip}")
+                return False
+
+            print(f"❌ dynv6 返回异常状态 → {body}")  # <<< ADD
+            return False
     except Exception as e:
         print(f"❌ dynv6 请求异常: {e}")
         return False
+# <<< ADD
+
 # <<< ADD
 
 def process_proxy(proxy_line):
