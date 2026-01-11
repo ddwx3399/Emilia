@@ -21,7 +21,7 @@ OUTPUT_FILE = "Data/alive.txt"
 active_proxies = []  # List untuk menyimpan proxy aktif
 
 # >>> ADD: dynv6 config
-DYNV6_HOSTNAME = "mythink.dns.army"
+DYNV6_HOSTNAME = "proxyipmy.dns.army"
 DYNV6_TOKEN = "sKzuT7Sowr-uTpQSuS-JmY5ejAQTy8"
 dynv6_updated = Event()
 # <<< ADD
