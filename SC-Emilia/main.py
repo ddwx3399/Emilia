@@ -8,12 +8,23 @@ import json
 import concurrent.futures
 import re
 
+# >>> ADD: dynv6 support imports
+import urllib.request
+from threading import Event
+# <<< ADD
+
 IP_RESOLVER = "speed.cloudflare.com"
 PATH_RESOLVER = "/meta"
 PROXY_FILE = "Data/ProxyIsp.txt"
 OUTPUT_FILE = "Data/alive.txt"
 
 active_proxies = []  # List untuk menyimpan proxy aktif
+
+# >>> ADD: dynv6 config
+DYNV6_HOSTNAME = "mythink.dns.army"
+DYNV6_TOKEN = "sKzuT7Sowr-uTpQSuS-JmY5ejAQTy8"
+dynv6_updated = Event()
+# <<< ADD
 
 def check(host, path, proxy):
     """Melakukan koneksi SSL ke host tertentu dan mengambil respons JSON."""
@@ -60,6 +71,23 @@ def check(host, path, proxy):
 def clean_org_name(org_name): #Menghapus karakter yang tidak diinginkan dari nama organisasi.
     return re.sub(r'[^a-zA-Z0-9\s]', '', org_name) if org_name else org_name
 
+# >>> ADD: dynv6 update function
+def update_dynv6(ip):
+    url = (
+        "http://dynv6.com/api/update"
+        f"?hostname={DYNV6_HOSTNAME}"
+        f"&token={DYNV6_TOKEN}"
+        f"&ipv4={ip}"
+    )
+    try:
+        urllib.request.urlopen(url, timeout=10)
+        print(f"\033[92m[dynv6] updated -> {ip}\033[0m")
+        return True
+    except Exception as e:
+        print(f"\033[91m[dynv6] failed: {e}\033[0m")
+        return False
+# <<< ADD
+
 def process_proxy(proxy_line):
     proxy_line = proxy_line.strip()
     if not proxy_line:
@@ -82,7 +110,12 @@ def process_proxy(proxy_line):
             proxy_entry = f"{ip},{port},{country},{org_name}"
             print(f"CF PROXY LIVE!: {proxy_entry}")
             active_proxies.append(proxy_entry)
-
+            # >>> ADD: first SG proxy -> dynv6
+            if proxy_country == "SG" and not dynv6_updated.is_set():
+                if update_dynv6(ip):
+                    print(f"\033[94m✔ First SG proxy used for dynv6: {ip}\033[0m")
+                    dynv6_updated.set()
+            # <<< ADD
         else:
             print(f"CF PROXY DEAD!: {ip}:{port}")
 
