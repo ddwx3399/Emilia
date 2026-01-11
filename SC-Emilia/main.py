@@ -112,13 +112,7 @@ def process_proxy(proxy_line):
             proxy_entry = f"{ip},{port},{country},{org_name}"
             print(f"CF PROXY LIVE!: {proxy_entry}")
             active_proxies.append(proxy_entry)
-            # >>> ADD: first SG proxy -> dynv6
-            if proxy_country == "SG" and not dynv6_updated.is_set():
-                print(f"====存在SG")
-                if update_dynv6(ip):
-                    print(f"\033[94m✔ First SG proxy used for dynv6: {ip}\033[0m")
-                    dynv6_updated.set()
-            # <<< ADD
+
         else:
             print(f"CF PROXY DEAD!: {ip}:{port}")
 
@@ -150,5 +144,29 @@ if active_proxies:
     with open(OUTPUT_FILE, "w") as f_me:
         f_me.write("\n".join(active_proxies) + "\n")
     print(f"Semua proxy aktif disimpan ke {OUTPUT_FILE}")
+
+# ------------------------------
+# >>> ADD: dynv6 更新逻辑，读取 OUTPUT_FILE
+# ------------------------------
+try:
+    with open(OUTPUT_FILE, "r") as f_alive:
+        lines = f_alive.readlines()
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            ip, port, country, org = line.split(",")
+            if country.strip().upper() == "SG" and port.strip() == "443" and not dynv6_updated.is_set():
+                print(f"Found first SG proxy with port 443 in alive.txt: {ip}:{port}")
+                if update_dynv6(ip):
+                    print(f"\033[94m✔ First SG proxy updated to dynv6: {ip}\033[0m")
+                    dynv6_updated.set()
+                break
+        except ValueError:
+            continue
+except FileNotFoundError:
+    print(f"File not found: {OUTPUT_FILE}")
+# <<< ADD
 
 print("Pengecekan proxy selesai.")
