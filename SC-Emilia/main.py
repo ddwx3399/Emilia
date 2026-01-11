@@ -7,9 +7,7 @@ import ssl
 import json
 import concurrent.futures
 import re
-# >>> ADD
-import requests
-# <<< ADD
+
 
 # >>> ADD: dynv6 support imports
 import urllib.request
@@ -75,26 +73,23 @@ def clean_org_name(org_name): #Menghapus karakter yang tidak diinginkan dari nam
     return re.sub(r'[^a-zA-Z0-9\s]', '', org_name) if org_name else org_name
 
 # >>> ADD: dynv6 update function
+
 def update_dynv6(ip):
-    url = "http://dynv6.com/api/update"
-    params = {
-        "hostname": DYNV6_HOSTNAME,
-        "token": DYNV6_TOKEN,
-        "ipv4": ip
-    }
+    url = (
+        f"http://dynv6.com/api/update"
+        f"?hostname={DYNV6_HOSTNAME}"
+        f"&token={DYNV6_TOKEN}"
+        f"&ipv4={ip}"
+    )
     try:
-        r = requests.get(url, params=params, timeout=10)
-        if r.status_code == 200:
+        with urllib.request.urlopen(url, timeout=10) as r:
+            body = r.read().decode().strip()
             print(f"✅ dynv6 更新成功 → {ip}")
-            print(f"返回内容: {r.text.strip()}")
-            return True              # <<< ADD
-        else:
-            print(f"❌ dynv6 更新失败，状态码: {r.status_code}")
-            return False             # <<< ADD
+            print(f"返回内容: {body}")
+            return True
     except Exception as e:
         print(f"❌ dynv6 请求异常: {e}")
-        return False                 # <<< ADD
-# <<< ADD
+        return False
 # <<< ADD
 
 def process_proxy(proxy_line):
