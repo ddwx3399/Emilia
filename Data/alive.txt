@@ -1,3 +1,0 @@
-65.108.243.114,443,FI,Hetzner Online GmbH
-79.137.206.101,443,FI,Aeza International LTD
-141.145.199.188,443,FR,Oracle Corporation
