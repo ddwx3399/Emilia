@@ -1,3 +1,0 @@
-212.113.106.125,8443,GB,Aeza International LTD
-198.244.235.173,179,GB,OVH Ltd
-46.229.251.130,443,NL,ZetServers Amsterdam
