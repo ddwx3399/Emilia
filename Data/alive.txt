@@ -1,1 +1,1 @@
-141.145.199.188,443,FR,Oracle Corporation
+185.36.142.38,443,EE,Brainoza OU
