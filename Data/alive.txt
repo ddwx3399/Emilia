@@ -1,3 +1,1 @@
-141.145.199.188,443,FR,Oracle Corporation
-45.135.180.157,8443,NL,RCS Technologies FZE LLC
-46.229.251.130,443,NL,ZetServers Amsterdam
+143.20.236.163,8443,NL,Customer allocation HB Client 2916
