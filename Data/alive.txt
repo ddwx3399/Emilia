@@ -1,2 +1,0 @@
-85.192.49.132,8443,FI,H2NEXUS LTD
-51.15.85.93,25565,NL,Scaleway - Amsterdam, Netherlands
