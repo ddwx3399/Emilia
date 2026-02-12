@@ -1,1 +1,2 @@
-141.145.199.188,443,FR,Oracle Corporation
+57.129.63.42,8443,DE,OVH GmbH
+89.58.57.45,443,DE,netcup GmbH
