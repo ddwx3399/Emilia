@@ -1,1 +1,1 @@
-89.110.116.250,8443,NL,Amsterdam, Netherlands
+141.145.199.188,443,FR,Oracle Corporation
