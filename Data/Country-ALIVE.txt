@@ -1,1 +1,2 @@
-46.229.251.130,443,NL,ZetServers Amsterdam
+198.244.235.173,179,GB,OVH Ltd
+45.144.51.180,8443,PL,Newserverlife LLC
