@@ -1,3 +1,0 @@
-36.133.126.13,443,CN,China Mobile Communications Corporation
-193.23.219.17,443,DE,Senko Digital LLC
-64.188.68.237,8443,DE,Senko Digital LLC
