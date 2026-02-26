@@ -1,2 +1,0 @@
-66.151.42.239,443,NL,XL
-51.15.85.93,25565,NL,Scaleway - Amsterdam, Netherlands
