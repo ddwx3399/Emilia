@@ -1,0 +1,2 @@
+45.144.48.140,8443,PL,Newserverlife LLC
+192.227.155.245,443,US,RackNerd LLC
